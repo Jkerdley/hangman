@@ -1,44 +1,88 @@
-# hangman
+# 🎮 Игра "Виселица" (Hangman)
 
-This template should help get you started developing with Vue 3 in Vite.
+![Игра Виселица](https://img.shields.io/badge/Игра-Виселица-54bc6c)
+![Vue.js](https://img.shields.io/badge/Vue.js-3.5-42b883)
+![Vite](https://img.shields.io/badge/Vite-Latest-646cff)
 
-## Recommended IDE Setup
+Классическая игра "Виселица", разработанная на Vue 3 с использованием Vite. Угадывайте буквы, чтобы открыть загаданное русское имя, но будьте осторожны — у вас есть только 6 попыток!
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 📋 Описание игры
 
-## Recommended Browser Setup
+"Виселица" — это игра на угадывание слов, где:
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- Компьютер загадывает случайное русское имя
+- Игрок пытается угадать слово, вводя по одной букве
+- За каждую неправильную букву рисуется часть человечка на виселице
+- Если человечек нарисован полностью (после 6 ошибок) — игра проиграна
+- Если все буквы угаданы до того, как человечек нарисован полностью — игра выиграна
 
-## Customize configuration
+## 🚀 Особенности
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- 🔄 Случайные русские имена через API
+- 🎨 Анимированная SVG-графика для отображения виселицы
+- 📱 Адаптивный дизайн
+- 🔔 Уведомления о повторном вводе букв
+- 🏆 Всплывающие окна с результатами игры
 
-## Project Setup
+## 🛠️ Технологии
+
+- **Vue 3**
+- **Vite**
+- **Composition API**
+- **Axios**
+
+## 🔧 Установка и запуск
+
+### Требования
+
+- Node.js (версия ^20.19.0 или >=22.12.0)
+- npm или yarn
+
+### Установка зависимостей
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Запуск для разработки
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Сборка для продакшена
 
 ```sh
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Предпросмотр сборки
 
 ```sh
-npm run lint
+npm run preview
+```
+
+## 🎮 Как играть
+
+1. Запустите игру
+2. Используйте клавиатуру для ввода букв русского алфавита
+3. Угадайте слово до того, как человечек будет полностью нарисован
+4. После завершения игры нажмите кнопку "Сыграть еще раз"
+
+## 🧩 Структура проекта
+
+```
+src/
+├── api/                # API для получения случайных имен
+├── components/         # Vue компоненты
+│   ├── GameFigure      # Отображение виселицы
+│   ├── GameHeader      # Заголовок игры
+│   ├── GameNotification # Уведомления
+│   ├── GamePopup       # Всплывающие окна результатов
+│   ├── GameWord        # Отображение загаданного слова
+│   └── GameWrongLetters # Отображение неправильных букв
+├── composables/        # Композиционные функции
+│   ├── useLetters      # Логика обработки букв
+│   └── useRandomWord   # Получение случайного слова
+└── styles/             # CSS стили
 ```
