@@ -1,20 +1,16 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import GameFigure from './components/GameFigure.vue'
 import GameHeader from './components/GameHeader.vue'
 import GameNotification from './components/GameNotification.vue'
 import GamePopup from './components/GamePopup.vue'
 import GameWord from './components/GameWord.vue'
 import GameWrongLetters from './components/GameWrongLetters.vue'
+import { useRandomWord } from './composables/useRandomWord'
+import { useLetters } from './composables/useLetters'
 
-const word = ref('василий')
-const letters = ref([])
-const correctLetters = computed(() => letters.value.filter((letter) => word.value.includes(letter)))
-const wrongLetters = computed(() => letters.value.filter((letter) => !word.value.includes(letter)))
-const isStatusLoose = computed(() => wrongLetters.value.length === 6)
-const isStatusWin = computed(() =>
-  [...word.value].every((letter) => correctLetters.value.includes(letter)),
-)
+const { word, getRandomWord } = useRandomWord()
+const { letters, correctLetters, wrongLetters, isStatusLoose, isStatusWin } = useLetters(word)
 
 const notification = ref(null)
 const popup = ref(null)
@@ -36,6 +32,7 @@ const handleKeydown = ({ key }) => {
 const handleRestart = () => {
   letters.value = []
   popup.value?.close()
+  getRandomWord()
   if (isStatusLoose.value || isStatusWin.value) {
     return
   }
@@ -63,20 +60,13 @@ watch(correctLetters, () => {
 
 <template>
   <div id="app">
-    {{ wrongLetters }}
     <GameHeader />
     <div class="game-container">
       <GameFigure :wrongLettersCount="wrongLetters.length" />
-
       <GameWrongLetters :wrong-letters="wrongLetters" />
-
       <GameWord :word="word" :correct-letters="correctLetters" />
     </div>
-
     <GamePopup ref="popup" @restart="handleRestart" :wordString="word" />
-
     <GameNotification ref="notification" />
   </div>
 </template>
-
-<style scoped></style>
